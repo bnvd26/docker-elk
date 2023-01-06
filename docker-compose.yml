@@ -102,7 +102,7 @@ services:
     labels:
       - "traefik.http.routers.kibana.rule=Host(`kibana.benodev.com`)"
       - "traefik.http.routers.kibana.entrypoints=websecure"
-      - "traefik.http.services.kibana.loadbalancer.server.port=5601"
+      - "traefik.http.services.kibana.loadbalancer.server.port=80"
       - "traefik.http.routers.kibana.service=kibana"
       - "traefik.http.routers.kibana.tls.certresolver=lets-encrypt"
 
