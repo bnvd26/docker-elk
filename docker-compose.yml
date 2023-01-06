@@ -89,18 +89,30 @@ services:
     volumes:
       - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
     ports:
-      - 5601:5601
+      - 0.0.0.0:5601:5601
     environment:
-      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
-    networks:
-      - elk
+      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}      
     depends_on:
       - elasticsearch
     restart: unless-stopped
+    networks:
+      - internal
+      - web
+      - elk
+    labels:
+      - "traefik.http.routers.kibana.rule=Host(`kibana.benodev.com`)"
+      - "traefik.http.routers.kibana.entrypoints=websecure"
+      - "traefik.http.services.kibana.loadbalancer.server.port=5601"
+      - "traefik.http.routers.kibana.service=kibana"
+      - "traefik.http.routers.kibana.tls.certresolver=lets-encrypt"
 
 networks:
   elk:
     driver: bridge
+  web:
+    external: true
+  internal:
+    external: false
 
 volumes:
   setup:
