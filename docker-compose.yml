@@ -143,3 +143,4 @@ networks:
 volumes:
   setup:
   elasticsearch:
+  metricbeat:
