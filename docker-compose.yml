@@ -80,8 +80,9 @@ services:
     depends_on:
       - elasticsearch
     restart: unless-stopped
+
   metricbeat:
-    image: docker.elastic.co/beats/metricbeat:${ELASTIC_VERSION:-7.9.
+    image: docker.elastic.co/beats/metricbeat:${ELASTIC_VERSION:-}
     # https://github.com/docker/swarmkit/issues/1951
     user: root
     networks:
