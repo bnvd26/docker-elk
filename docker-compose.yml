@@ -89,6 +89,7 @@ services:
     user: root
     networks:
       - elk
+    entrypoint: bash -c 'export PATH=$PATH:/usr/share/filebeat && /usr/local/bin/docker-entrypoint -e'
 
     volumes:
       - $PWD/beats/filebeat/config/filebeat.yml:/usr/share/filebeat/
