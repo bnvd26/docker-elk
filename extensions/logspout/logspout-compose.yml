@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 services:
   logspout:
@@ -10,7 +10,7 @@ services:
         target: /var/run/docker.sock
         read_only: true
     environment:
-      ROUTE_URIS: logstash://logstash:50000
+      ROUTE_URIS: logstash://logstash:50001
       LOGSTASH_TAGS: docker-elk
     networks:
       - elk
