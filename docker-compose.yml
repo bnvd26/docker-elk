@@ -89,10 +89,9 @@ services:
     user: root
     networks:
       - elk
-    entrypoint: bash -c 'export PATH=$PATH:/usr/share/filebeat && /usr/local/bin/docker-entrypoint -e'
 
     volumes:
-      - $PWD/beats/filebeat/config/filebeat.yml:/usr/share/filebeat/
+      - $PWD/beats/filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
       - filebeat:/usr/share/filebeat/data
       - /var/run/docker.sock:/var/run/docker.sock
       # This is needed for filebeat to load container log path as specified in filebeat.yml
