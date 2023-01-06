@@ -80,6 +80,31 @@ services:
     depends_on:
       - elasticsearch
     restart: unless-stopped
+  metricbeat:
+    image: docker.elastic.co/beats/metricbeat:${ELASTIC_VERSION:-7.9.
+    # https://github.com/docker/swarmkit/issues/1951
+    user: root
+    networks:
+      - elk
+    configs:
+      - source: mb_config
+        target: /usr/share/metricbeat/metricbeat.yml
+    volumes:
+      - /proc:/hostfs/proc:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      - /:/hostfs:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - metricbeat:/usr/share/metricbeat/data
+    environment:
+      - ELASTICSEARCH_HOST=0.0.0.0:9200
+      - KIBANA_HOST=0.0.0.0:9200
+      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic}
+      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-%5Z$faNrgb66zBqJLyyCku4b$L2vL^4sj#F#$4BY@7a}
+    # disable strict permission checks
+    command: ["--strict.perms=false", "-system.hostfs=/hostfs"]
+    deploy:
+      mode: global
+
 
   kibana:
     build:
