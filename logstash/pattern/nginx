@@ -1,0 +1,2 @@
+NGUSERNAME [a-aA-Z\.\@\-\+_%]+
+NGUSER %{NGUSERNAME}
